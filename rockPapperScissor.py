@@ -1,41 +1,128 @@
 import random
-randomnum = random.random()
-if (randomnum > 0.0 and randomnum <= 1/3 ):
-  computerchoice = "rock"
-elif (randomnum > 1/3 and randomnum <= 2/3):
-  computerchoice = "paper"
-elif (randomnum > 2/3 and randomnum < 1):
-  computerchoice = "scissor"
 
-yourscore = 0
-computerscore = 0
+#provide instruction to user for plya game 
+def get_instruction():
+    print()
+    print()
+    print("Instructions for Rock-Paper-Scissors : ")
+    print()
+    print("Rock crushes Scissors")
+    print("Scissors cuts Paper")
+    print("Paper covers Rock")
+    print()
 
-while(True):
-  user = input("Enter your choice: ")
-  if user in ('scissor', 'paper', 'rock'):      
-      if (user == computerchoice):
-        print('You chose '+user+' Compuer chose '+computerchoice)
-        print("You tie")
-        print('Your score '+str(yourscore)+' Computer score '+str(computerscore))
 
-      elif ((user == 'rock' and computerchoice == 'scissor') or 
-            (user == 'paper' and computerchoice == 'rock') or
-            (user == 'scissor' and computerchoice == 'paper')) :
-        yourscore += 1    
-        print('You chose '+user+' Compuer chose '+computerchoice)
-        print('You win')
-        print('Your score '+str(yourscore)+' Computer score '+str(computerscore))
 
-      else:
-        computerscore += 1
-        print('You chose '+user+' Compuer chose '+computerchoice)
-        print('You lost')
-        print('Your score '+str(yourscore)+' Computer score '+str(computerscore))
+#play Game function
+def play_game(player_int):
+    
+    if player_int.lower() == "rock":
+            player_move = 0
+        
+    elif player_int.lower() == "paper":
+            player_move = 1
+        
+    elif player_int == "scissor":
+            player_move = 2
 
-      
-      game = input("\nIf you want to escape press n, to continue press any key. ")
-      if (game == 'n'):
-        break
+    #get computer move in ramdomly
+    comp_move = random.randint(0, 2)
+
+      #declaire the winner
+    winner = rps_table[player_move][comp_move]
+
+    print()
+    print("The player choise "+str(player_move)+ " The computer choise "+str(comp_move))
+    print()
+
+    #choice the winner who are
+    if winner == player_move:
+        print("You Win")
+
+    elif winner == comp_move:
+        print("Computer Win")
+
+    else:
+        print("It is tie:")
+
+
+
+#Rock paper scissor game play functoin
+def rps():
+    global game_map
+    global  rps_table
+
+    while True:
+        print()
+        print()
+        print("\t\tCongratulation.....You Entered to plya game")
+        print()
+        print("\t\t-------------------------------------")
+        print("\t\tMenu")
+        print("\t\t-------------------------------------")
+        print("\t\tEnter 'help' for intruction")
+        print("\t\tEnter 'rock', 'paper' or 'scissor' to plya game ")
+        print("\t\tEnter 'exit' to quit")
+
+        print()
+
+        #get plyar input
+        player_int = input("Enter your move: ")
+
+        if player_int.lower() == "help":
+            get_instruction()
+            continue
+        
+        elif player_int.lower() == "exit":
+            break
+
+        #player move  
+        elif player_int in ("rock", "paper", "scissor"):
+            play_game(player_int)  
+        
+        #when wrong input
+        else:
+            print("\t\tWRONG INPUT")
+            continue
+        
+       
+
+
+
+
+
+
+
+#intial step of game
+game_map = {0:"rock", 1:"paper", 2:"scissor"}
+
+# Win lose matrix
+rps_table = [[-1,1,0],[1,-1,2],[0,2,-1]]
+
+while True:
+
+  print()
+  print("This is rock paper scissor game!!!!")
+  print("Enter 1 to plya Game")
+  print("Enter 2 to Exit Game")
+  print()
+
+  try:
+    choice = int(input("Enter your choice = "))
+  except ValueError:
+    print("wrong choise")
+    continue
+
+  if choice == 1:
+    rps()
+  
+  elif choice == 2:
+    break
 
   else:
-    print("\nEnter correct name.\n")
+    print("Wrong choice")
+    break
+
+
+
+
